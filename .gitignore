@@ -328,3 +328,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/src/Microsoft_Azure_Developer_Implementing_Blob_Storage/AzureStorage/Blob/Settings/AppSettings.cs
+/src/Microsoft_Azure_Developer_Implementing_Blob_Storage/AzureStorage/Blob/Images
