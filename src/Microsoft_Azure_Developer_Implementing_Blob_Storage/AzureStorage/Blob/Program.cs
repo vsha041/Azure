@@ -13,9 +13,22 @@ namespace Blob
 			// Upload Blob
 			var image = Image.FromFile(@"Images\ben.jpg");
 			var uploadBlobService = new UploadBlobService(AppSettings.ConnectionString);
-			var task = Task.Run(async () => await uploadBlobService.Upload(image, "ben.jpg"));
+			var task = Task.Run(async () =>
+			{
+				var blobName = "2019\\ben.jpg";
+				var doesBlobExists = await uploadBlobService.CheckIfBlobExistsAsync(blobName);
+				if (!doesBlobExists)
+				{
+					var cloudBlockBlob = await uploadBlobService.Upload(image, blobName);
+					Console.WriteLine($"{cloudBlockBlob.Name} - {cloudBlockBlob.Uri.AbsoluteUri}");
+				}
+				else
+				{
+					Console.WriteLine($"Blob with name {blobName} already exists.");
+				}
+			});
+
 			task.Wait();
-			Console.WriteLine();
 		}
 	}
 }
