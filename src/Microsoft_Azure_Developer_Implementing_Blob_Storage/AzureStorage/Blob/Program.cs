@@ -12,14 +12,14 @@ namespace Blob
 		{
 			// Upload Blob
 			var image = Image.FromFile(@"Images\ben.jpg");
-			var uploadBlobService = new UploadBlobService(AppSettings.ConnectionString);
+			var blobService = new BlobService(AppSettings.ConnectionString);
 			var task = Task.Run(async () =>
 			{
 				var blobName = "2019\\ben.jpg";
-				var doesBlobExists = await uploadBlobService.CheckIfBlobExistsAsync(blobName);
+				var doesBlobExists = await blobService.CheckIfBlobExistsAsync(blobName);
 				if (!doesBlobExists)
 				{
-					var cloudBlockBlob = await uploadBlobService.Upload(image, blobName);
+					var cloudBlockBlob = await blobService.Upload(image, blobName);
 					Console.WriteLine($"{cloudBlockBlob.Name} - {cloudBlockBlob.Uri.AbsoluteUri}");
 				}
 				else
@@ -29,6 +29,18 @@ namespace Blob
 			});
 
 			task.Wait();
+
+			// List blob directory
+			var listBlobTask = Task.Run(async () =>
+			{
+				var cloudBlockDirectories = await blobService.ListBlobDirectories();
+				foreach (var cloudBlockDirectory in cloudBlockDirectories)
+				{
+					Console.WriteLine($"{cloudBlockDirectory.Uri}");
+				}
+			});
+
+			listBlobTask.Wait();
 		}
 	}
 }
