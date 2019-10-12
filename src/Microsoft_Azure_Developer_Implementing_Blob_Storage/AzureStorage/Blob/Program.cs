@@ -11,6 +11,7 @@ namespace Blob
 		public static void Main(string[] args)
 		{
 			// Upload Blob
+			Console.WriteLine("-----------------------------------------------");
 			var image = Image.FromFile(@"Images\ben.jpg");
 			var blobService = new BlobService(AppSettings.ConnectionString);
 			var task = Task.Run(async () =>
@@ -31,6 +32,7 @@ namespace Blob
 			task.Wait();
 
 			// List blob directory
+			Console.WriteLine("-----------------------------------------------");
 			var listBlobTask = Task.Run(async () =>
 			{
 				var cloudBlockDirectories = await blobService.ListBlobDirectories();
@@ -41,6 +43,19 @@ namespace Blob
 			});
 
 			listBlobTask.Wait();
+
+			// List Blob Segments
+			Console.WriteLine("-----------------------------------------------");
+			var listBlobSegmentTask = Task.Run(async () =>
+			{
+				var cloudBlockBlobSegments = await blobService.ListBlobsSegments();
+				foreach (var cloudBlockSegment in cloudBlockBlobSegments)
+				{
+					Console.WriteLine($"{cloudBlockSegment.Name} - {cloudBlockSegment.Uri}");
+				}
+			});
+
+			listBlobSegmentTask.Wait();
 		}
 	}
 }

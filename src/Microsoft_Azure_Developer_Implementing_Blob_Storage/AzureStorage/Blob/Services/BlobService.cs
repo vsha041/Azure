@@ -42,5 +42,13 @@ namespace Blob.Services
 			var items = blobResultSegment.Results.OfType<CloudBlobDirectory>().ToList();
 			return items;
 		}
+
+		public async Task<List<CloudBlockBlob>> ListBlobsSegments()
+		{
+			var cloudBlobContainer = await _serviceHelper.GetCloudBlobContainer();
+			var blobResultSegment = await cloudBlobContainer.ListBlobsSegmentedAsync(null, true, BlobListingDetails.All, null, null, null, null);
+			var items = blobResultSegment.Results.OfType<CloudBlockBlob>().ToList();
+			return items;
+		}
 	}
 }

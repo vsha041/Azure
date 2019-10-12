@@ -12,5 +12,7 @@ namespace Blob.Interfaces
 		Task<bool> CheckIfBlobExistsAsync(string blobName);
 
 		Task<List<CloudBlobDirectory>> ListBlobDirectories();
+
+		Task<List<CloudBlockBlob>> ListBlobsSegments();
 	}
 }
