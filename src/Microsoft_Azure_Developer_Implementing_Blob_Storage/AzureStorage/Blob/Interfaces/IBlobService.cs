@@ -13,6 +13,6 @@ namespace Blob.Interfaces
 
 		Task<List<CloudBlobDirectory>> ListBlobDirectories();
 
-		Task<List<CloudBlockBlob>> ListBlobsSegments();
+		Task<List<CloudBlockBlob>> ListBlobsSegments(string prefix);
 	}
 }

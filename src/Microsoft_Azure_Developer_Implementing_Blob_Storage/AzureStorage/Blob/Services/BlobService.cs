@@ -43,10 +43,10 @@ namespace Blob.Services
 			return items;
 		}
 
-		public async Task<List<CloudBlockBlob>> ListBlobsSegments()
+		public async Task<List<CloudBlockBlob>> ListBlobsSegments(string prefix)
 		{
 			var cloudBlobContainer = await _serviceHelper.GetCloudBlobContainer();
-			var blobResultSegment = await cloudBlobContainer.ListBlobsSegmentedAsync(null, true, BlobListingDetails.All, null, null, null, null);
+			var blobResultSegment = await cloudBlobContainer.ListBlobsSegmentedAsync(prefix, true, BlobListingDetails.All, null, null, null, null);
 			var items = blobResultSegment.Results.OfType<CloudBlockBlob>().ToList();
 			return items;
 		}

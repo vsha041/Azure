@@ -48,7 +48,7 @@ namespace Blob
 			Console.WriteLine("-----------------------------------------------");
 			var listBlobSegmentTask = Task.Run(async () =>
 			{
-				var cloudBlockBlobSegments = await blobService.ListBlobsSegments();
+				var cloudBlockBlobSegments = await blobService.ListBlobsSegments("2019/Ch");
 				foreach (var cloudBlockSegment in cloudBlockBlobSegments)
 				{
 					Console.WriteLine($"{cloudBlockSegment.Name} - {cloudBlockSegment.Uri}");
