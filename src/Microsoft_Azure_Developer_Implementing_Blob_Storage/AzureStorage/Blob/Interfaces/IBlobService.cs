@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Azure.Storage.Blob;
 
@@ -14,5 +15,7 @@ namespace Blob.Interfaces
 		Task<List<CloudBlobDirectory>> ListBlobDirectories();
 
 		Task<List<CloudBlockBlob>> ListBlobsSegments(string prefix);
+
+		Task DownloadImage(CloudBlockBlob cloudBlockBlob, byte[] data);
 	}
 }

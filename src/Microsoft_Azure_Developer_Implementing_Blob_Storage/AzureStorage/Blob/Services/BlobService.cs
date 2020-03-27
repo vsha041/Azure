@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Blob.Interfaces;
@@ -49,6 +50,11 @@ namespace Blob.Services
 			var blobResultSegment = await cloudBlobContainer.ListBlobsSegmentedAsync(prefix, true, BlobListingDetails.All, null, null, null, null);
 			var items = blobResultSegment.Results.OfType<CloudBlockBlob>().ToList();
 			return items;
+		}
+
+		public async Task DownloadImage(CloudBlockBlob cloudBlockBlob, byte[] data)
+		{
+			int imageBytes = await cloudBlockBlob.DownloadToByteArrayAsync(data, 0);
 		}
 	}
 }

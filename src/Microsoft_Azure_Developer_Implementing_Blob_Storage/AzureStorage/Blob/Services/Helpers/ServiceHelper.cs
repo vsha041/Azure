@@ -33,5 +33,11 @@ namespace Blob.Services.Helpers
 			image.Save(ms, image.RawFormat);
 			return ms.ToArray();
 		}
+
+		public Image GetImageFromBytes(byte[] data)
+		{
+			using var ms = new MemoryStream(data);
+			return Image.FromStream(ms);
+		}
 	}
 }
